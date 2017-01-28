@@ -2,11 +2,12 @@ import sys
 
 # this will check if the entire 9x9 board is full.
 def board_is_full(board):
-	for sub_board in board:
-		for row in sub_board:
-			for char in row:
-				if char == '':
-					return False
+	for sub_row in board:
+		for sub_board in sub_row:
+			for row in sub_board:
+				for char in row:
+					if char == '0':
+						return False
 
 	return True
 
@@ -47,7 +48,8 @@ def sub_board_is_full(board, play_row, play_col):
 				return char
 
 	return 'F'
-board = [[[[0 for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
+
+
 def printboard(board):
 	j = 0
 	for i in range(3):
@@ -65,7 +67,7 @@ def printboard(board):
 
 		print ""
 
+board = [[[['0' for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
 
-printboard(board)
 
 
