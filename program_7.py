@@ -44,7 +44,7 @@ def minimax(level, time_left, us, turn, move, board):
 	elif turn == us:
 		best_val = -1000000
 		moves = find_moves(turn, move, board)
-		if TOP_LEVEL  - 2 >= 
+		if TOP_LEVEL  - 2 >=
 	else:
 		best_val = 1000000
 		moves = find_moves(turn, move, board)
