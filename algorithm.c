@@ -20,7 +20,7 @@ char boardChecker(char board[3][3][3][3], int checkRow, int checkCol){
   //char subBoard[][] = board[checkRow][checkCol];
   //char** subBoard = board[checkRow][checkCol];
 
-  printf("Row %d Col %d\n", checkRow, checkCol);
+  //printf("Row %d Col %d\n", checkRow, checkCol);
   // vertical
 	if (board[checkRow][checkCol][0][0] == board[checkRow][checkCol][0][1] && board[checkRow][checkCol][0][1] == board[checkRow][checkCol][0][2])
 		return board[checkRow][checkCol][0][0];
@@ -66,7 +66,7 @@ int algorithm(char board[3][3][3][3], int playRow, int playCol, char currColour,
   //char[][] subBoard = char[playRow][playCol];
   //int points[3][3];
   char boardCheckResult = boardChecker(board, playRow, playCol);
-  printf("Board check is %c\n", boardCheckResult);
+  //printf("Board check is %c\n", boardCheckResult);
   if (boardCheckResult == '0'){
     return getScore(board, playRow, playCol, currColour, us);
   }
@@ -115,7 +115,7 @@ int getScore(char board[3][3][3][3], int checkRow, int checkCol, char currColour
           pointTotal -= 1;
       }
 
-      printf("%c  %d\n", curr, pointTotal);
+      //printf("%c  %d\n", curr, pointTotal);
     }
   }
 
@@ -148,6 +148,6 @@ int main(int argc, char** argv) {
 	}
 	}
   printboard(board);
-  printf("\n%d", algorithm(board, 2, 2, '1', '2'));
+  printf("Score:  %d\n", algorithm(board, 2, 2, '1', '2'));
   return 0;
 }
