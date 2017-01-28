@@ -3,19 +3,24 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
-
+#include "printboard.c"
 
 char opposite(char currColour);
-char boardWinner(char board[3][3][3][3], int checkRow, int checkCol);
+char boardChecker(char board[3][3][3][3], int checkRow, int checkCol);
 int algorithm(char board[3][3][3][3], int playRow, int playCol, char currColour, char us);
-int getScore(char board[3][3][3][3], int checkRow, int checkCol, char currColour);
+int getScore(char board[3][3][3][3], int checkRow, int checkCol, char currColour, char us);
 
-char boardWinner(char board[3][3][3][3], int checkRow, int checkCol){
+// Checks to see what the subboard state is
+// Returns '1' or '2' if X or O wins
+// Returns '0' if there is still an empty space in the subboard
+// Returns 'F' if the board is full
+char boardChecker(char board[3][3][3][3], int checkRow, int checkCol){
 
 	// the 3x3 subboard
   //char subBoard[][] = board[checkRow][checkCol];
   //char** subBoard = board[checkRow][checkCol];
 
+  printf("Row %d Col %d\n", checkRow, checkCol);
   // vertical
 	if (board[checkRow][checkCol][0][0] == board[checkRow][checkCol][0][1] && board[checkRow][checkCol][0][1] == board[checkRow][checkCol][0][2])
 		return board[checkRow][checkCol][0][0];
@@ -40,8 +45,8 @@ char boardWinner(char board[3][3][3][3], int checkRow, int checkCol){
 
 	for (int i = 0; i < 3; i++){
 		for (int j = 0; j < 3; j++){
-			if (board[checkRow][checkCol][i][j] == 'E'){
-				return 'E';
+			if (board[checkRow][checkCol][i][j] == '0'){
+				return '0';
 			}
 		}
 	}
@@ -60,8 +65,10 @@ int algorithm(char board[3][3][3][3], int playRow, int playCol, char currColour,
 
   //char[][] subBoard = char[playRow][playCol];
   //int points[3][3];
-  if (boardWinner(board, playRow, playCol) == 'E'){
-    return getScore(board, playRow, playCol, currColour);
+  char boardCheckResult = boardChecker(board, playRow, playCol);
+  printf("Board check is %c\n", boardCheckResult);
+  if (boardCheckResult == '0'){
+    return getScore(board, playRow, playCol, currColour, us);
   }
 
   // We would have to make a bad move, by sending the opponent to a full or won section
@@ -72,34 +79,17 @@ int algorithm(char board[3][3][3][3], int playRow, int playCol, char currColour,
   } else {
     return 1000;
   }
-
-
-  // for (int k = 0; k < 3; k++) {
-  //   for (int l = 0; l < 3; l++) {
-  //     char currChar_PlayBoard = subBoard[k][l];
-  //
-  //     if (currChar_PlayBoard == 'E') {
-  //
-  //       // If someone has not won at the board then check the board's score
-  //       if (boardWinner(board, k, l) == 'E') {
-  //         points[k][l] = getScore(board, k, l)
-  //       } else {
-  //         // DO NOT want to play at a full or won board
-  //         points[k][l]-= 1000;
-  //       }
-  //     }
-  //   }
-  // }
-
-  // if (us == currColour) {
-  //   return max(points);
-  // } else {
-  //   return min(points);
-  // }
 }
 
+// Returns a score for the subboard given by checkRow and checkCol
 
-int getScore(char board[3][3][3][3], int checkRow, int checkCol, char currColour) {
+// 2 cases to consider:
+// 1) The character to consider is 'us' ---> increase score
+// 2) The character to consider is the enemy ---> decrease score
+// The rationale is that we want to go to places where we have lots of ours
+// We want to send the enemy to places with lots of ours
+// Return value is positive if lots of us
+int getScore(char board[3][3][3][3], int checkRow, int checkCol, char currColour, char us) {
   // char[k][l]
   //char subBoard[3][3] = board[checkRow][checkCol];
 
@@ -109,14 +99,14 @@ int getScore(char board[3][3][3][3], int checkRow, int checkCol, char currColour
 
       char curr = board[checkRow][checkCol][k2][l2];
 
-      if (curr == currColour) {
+      if (curr == us) {
         if (k2 == 1 && l2 == 1)
           pointTotal += 5;
         else if ((k2+l2) % 2 == 0)
           pointTotal += 3;
         else
           pointTotal += 1;
-      } else if (curr == opposite(currColour)) {
+      } else if (curr == opposite(us)) {
         if (k2 == 1 && l2 == 1)
           pointTotal -= 5;
         else if ((k2+l2) % 2 == 0)
@@ -124,19 +114,40 @@ int getScore(char board[3][3][3][3], int checkRow, int checkCol, char currColour
         else
           pointTotal -= 1;
       }
+
+      printf("%c  %d\n", curr, pointTotal);
     }
   }
 
   return pointTotal;
 }
 
+// Returns the opposite player
+// 'X' is 1, 'O' is 2
 char opposite(char currColour) {
-  if (currColour == 'X')
-    return 'O';
-  return 'X';
+  if (currColour == '1')
+    return '2';
+  return '1';
 }
 
-// int main() {
-//   printf("Hello world");
-//   return 0;
-// }
+int main(int argc, char** argv) {
+
+	double time = atof(argv[1]); 	//gets time given in seconds
+	char us = argv[2][0];			//tells us who we are playing as (either X or O)
+	int move = argv[2][1] - '0';	//tells us where we are allowed to move
+  //printf("We are %c\nPlay in board %d\n\n", us, move);
+	char * raw_input_board = &argv[2][2];
+	char board[3][3][3][3];
+	for (int i = 0; i < 3; i++){
+	for (int j = 0; j < 3; j++){
+	for (int k = 0; k < 3; k++){
+	for (int l = 0; l < 3; l++){
+		board[i][j][k][l] = raw_input_board[27*i + 9*j + 3*k + l];
+	}
+	}
+	}
+	}
+  printboard(board);
+  printf("\n%d", algorithm(board, 2, 2, '1', '2'));
+  return 0;
+}
