@@ -8,38 +8,9 @@
 char opposite(char currColour);
 char boardChecker(char board[3][3][3][3], int checkRow, int checkCol);
 int algorithm(char board[3][3][3][3], int playRow, int playCol, char currColour, char us);
-<<<<<<< HEAD
-int getScore(char board[3][3][3][3], int checkRow, int checkCol, char currColour);
-void printboard(char baord[3][3][3][3]);
-
-
-void printboard(char board [3][3][3][3]){
-        for (int i = 0; i < 3; i++){
-                int j = 0;
-                for (int k = 0; k < 3; k++){
-                        for (int l1 = 0; l1 < 3; l1++){
-                                printf("%c",board[i][j][k][l1]);
-                        }
-                        printf(" ");
-                        for (int l2 = 0; l2 < 3; l2++){
-                                printf("%c",board[i][j+1][k][l2]);
-                        }
-                        printf(" ");
-                        for (int l3 = 0; l3 < 3; l3++){
-                                printf("%c",board[i][j+2][k][l3]);
-                        }
-                        printf("\n");
-                }
-                printf("\n");
-        }
-
-}
-
-
-
-=======
 int getScore(char board[3][3][3][3], int checkRow, int checkCol, char currColour, char us);
->>>>>>> d533bcbbc8cd5c4872aae3f13630eb43e4711cbf
+
+
 
 // Checks to see what the subboard state is
 // Returns '1' or '2' if X or O wins
@@ -161,26 +132,7 @@ char opposite(char currColour) {
   return '1';
 }
 
-<<<<<<< HEAD
-int main(int arc, char** argv) {
-	double time = atof(argv[1]);
-	char us = argv[2][0];
-	int move = argv[2][1] - '0';
-	char * raw_input_board = &argv[2][2];
-        char board[3][3][3][3];
-        for (int i = 0; i < 3; i++){
-        for (int j = 0; j < 3; j++){
-        for (int k = 0; k < 3; k++){
-        for (int l = 0; l < 3; l++){
-                board[i][j][k][l] = raw_input_board[27*i + 9*j + 3*k + l];
-        }
-        }
-        }
-        }
-	printboard(board);
-    printf("Hello world");
-    return 0;
-=======
+
 int main(int argc, char** argv) {
 
 	double time = atof(argv[1]); 	//gets time given in seconds
@@ -201,5 +153,4 @@ int main(int argc, char** argv) {
   printboard(board);
   printf("Score:  %d\n", algorithm(board, 2, 2, '1', '2'));
   return 0;
->>>>>>> d533bcbbc8cd5c4872aae3f13630eb43e4711cbf
 }
