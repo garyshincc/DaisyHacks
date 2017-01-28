@@ -17,6 +17,7 @@ void printboard(char board [3][3][3][3]){
 			for (int l3 = 0; l3 < 3; l3++){
 				printf("%c",board[i][j+2][k][l3]);
 			}
+			printf("\n");
 		}
 		printf("\n");
 	}
