@@ -7,7 +7,7 @@
 // device is the GPU
 
 __global__ void mykernel(void){
-	
+
 }
 
 int main(void){
