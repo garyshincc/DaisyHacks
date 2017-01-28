@@ -1,12 +1,14 @@
 import sys
 
 # this will check if the entire 9x9 board is full.
+emptychar = 'E'
+
 def board_is_full(board):
 	for sub_row in board:
 		for sub_board in sub_row:
 			for row in sub_board:
 				for char in row:
-					if char == '0':
+					if char == emptychar:
 						return False
 
 	return True
@@ -42,7 +44,7 @@ def sub_board_is_full(board, play_row, play_col):
 
 	for row in sub_board:
 		for char in row:
-			if char == '0':
+			if char == emptychar:
 				return char
 
 	return 'F'
@@ -81,9 +83,9 @@ def get_valid_moves(board, play_row, play_col):
 	for row_num in range(3):
 		for col_num in range(3):
 			# if empty
-			if sub_board[row_num][col_num] == '0':
+			if sub_board[row_num][col_num] == emptychar:
 
-				if sub_board_is_full(board, row_num, col_num) == 'E':
+				if sub_board_is_full(board, row_num, col_num) == emptychar:
 					valid_moves[row_num][col_num] = 2
 				else:
 					valid_moves[row_num][col_num] = 1
@@ -123,7 +125,7 @@ def who_won(board):
 
 	for row in result_board:
 		for char in row:
-			if char == '0':
+			if char == emptychar:
 				return char
 
 	return 'F'
