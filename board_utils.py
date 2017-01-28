@@ -1,5 +1,10 @@
 import sys
 
+def opposite(currColour):
+    if currColour == '1':
+        return '2'
+    return '1'
+	
 # this will check if the entire 9x9 board is full.
 emptychar = 'E'
 
@@ -77,7 +82,7 @@ def printboard(board):
 def get_valid_moves(board, play_row, play_col):
 
 	valid_moves = [[1 for x in range(3)] for y in range(3)]
-	
+
 	sub_board = board[play_row][play_col]
 
 	for row_num in range(3):
@@ -129,22 +134,3 @@ def who_won(board):
 				return char
 
 	return 'F'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
