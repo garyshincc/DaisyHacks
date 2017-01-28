@@ -72,7 +72,6 @@ def printboard(board):
 
 
 # test board
-# board = [[[['0' for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
 def get_valid_moves(board, play_row, play_col):
 
 	valid_moves = [[1 for x in range(3)] for y in range(3)]
@@ -94,12 +93,40 @@ def get_valid_moves(board, play_row, play_col):
 	return valid_moves
 
 
+# returns the character of who won the game
+# return the '0' character if no one has won yet
+# returns 'F' if board was full, and no one has won.
+def who_won(board):
 
+	result_board = [[sub_board_is_full(board,x,y) for x in range(3)] for y in range(3)]
 
+	if (result_board[0][0] == result_board[0][1] and result_board[0][1] == result_board[0][2]):
+		return result_board[0][0];
+	if (result_board[1][0] == result_board[1][1] and result_board[1][1] == result_board[1][2]):
+		return result_board[1][0];
+	if (result_board[2][0] == result_board[2][1] and result_board[2][1] == result_board[2][2]):
+		return result_board[2][0];
 
+	# horizontal
+	if (result_board[0][0] == result_board[1][0] and result_board[1][0] == result_board[2][0]):
+		return result_board[0][0];
+	if (result_board[0][1] == result_board[1][1] and result_board[1][1] == result_board[2][1]):
+		return result_board[0][1];
+	if (result_board[0][2] == result_board[1][2] and result_board[1][2] == result_board[2][2]):
+		return result_board[0][2];
 
+	# diagonals
+	if (result_board[0][0] == result_board[1][1] and result_board[1][1] == result_board[2][2]):
+		return result_board[0][0];
+	if (result_board[2][0] == result_board[1][1] and result_board[1][1] == result_board[0][2]):
+		return result_board[2][0];
 
+	for row in result_board:
+		for char in row:
+			if char == '0':
+				return char
 
+	return 'F'
 
 
 
