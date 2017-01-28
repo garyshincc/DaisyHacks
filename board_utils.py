@@ -11,8 +11,6 @@ def board_is_full(board):
 
 	return True
 
-
-
 # this will check if a sub board is playable.
 # returns characters
 # will return the color that the board is owned by,
@@ -44,7 +42,7 @@ def sub_board_is_full(board, play_row, play_col):
 
 	for row in sub_board:
 		for char in row:
-			if char == 'E':
+			if char == '0':
 				return char
 
 	return 'F'
@@ -67,7 +65,57 @@ def printboard(board):
 
 		print ""
 
-board = [[[['0' for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
+# returns a 2-D array of valid moves
+# the array will be 3 by 3 size type int
+# play row and play col correspond to which sub_board
+# is to be played currently.
+
+
+# test board
+# board = [[[['0' for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
+def get_valid_moves(board, play_row, play_col):
+
+	valid_moves = [[1 for x in range(3)] for y in range(3)]
+	
+	sub_board = board[play_row][play_col]
+
+	for row_num in range(3):
+		for col_num in range(3):
+			# if empty
+			if sub_board[row_num][col_num] == '0':
+
+				if sub_board_is_full(board, row_num, col_num) == 'E':
+					valid_moves[row_num][col_num] = 2
+				else:
+					valid_moves[row_num][col_num] = 1
+			else:
+				valid_moves[row_num][col_num] = 0
+
+	return valid_moves
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
