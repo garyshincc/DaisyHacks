@@ -3,13 +3,8 @@ import board_utils
 
 TOP_LEVEL = 7
 MIDDLE = 40
-<<<<<<< HEAD
 
 emptychar = 'E'
-
-=======
-emptychar = 'E'
->>>>>>> a46b7449aac8cb172bac29fa6c60efd4ff17456e
 def algorithm(board, move, currColour, us):
     boardCheckResult = sub_board_is_full(board, move)
 
@@ -82,7 +77,14 @@ def get_move(time, string):
 
 
 def best_move(us, turn, move, board):
-	board_utils.get_valid_moves(board, )
+	# is_free is when the move was a 9-type.
+	# returning True, and a 4D 3x3x3x3 array
+	# otherwise returns False, and returns 2D 3x3 array
+	# 2 is available,
+	# 1 is available but gives a free move,
+	# 0 is impossible
+
+	is_free, valid moves = board_utils.get_valid_moves(board, move)
 	algorithm()
 
 '''

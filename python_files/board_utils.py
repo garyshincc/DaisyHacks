@@ -85,7 +85,7 @@ def printboard(board):
 # 2 is available,
 # 1 is available but undesireable,
 # 0 is impossible
-def get_valid_moves(board, move, our_color):
+def get_valid_moves(board, move):
 	if move == 9:
 		valid_moves = [[[[2 for x in range(3)]for y in range(3)] for j in range(3)] for k in range(3)]
 		for board_row_num in range(3):
