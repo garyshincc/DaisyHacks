@@ -1,3 +1,4 @@
+
 from pprint import pprint
 from copy import deepcopy
 emptynum = 0
@@ -139,7 +140,6 @@ def getScore(board, move, us):
 
 	return pointTotal
 
-
 class square:
 	def __init__(self,ID,val):
 		self.ID = ID
@@ -261,6 +261,7 @@ def get_move(timeout,data):
 def copy_board(board):
 	new_board = deepcopy(board)
 	return new_board
+
 
 
 def minimax(level, time_left, us, turn, move, board):
