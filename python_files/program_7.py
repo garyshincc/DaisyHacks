@@ -84,7 +84,7 @@ def best_move(us, turn, move, board):
 	# 1 is available but gives a free move,
 	# 0 is impossible
 
-	is_free, valid moves = board_utils.get_valid_moves(board, move)
+	is_free, valid_moves = board_utils.get_valid_moves(board, move)
 	algorithm()
 
 '''

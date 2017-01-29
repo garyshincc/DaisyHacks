@@ -7,14 +7,14 @@ def opposite(currColour):
     return '1'
 	
 # this will check if the entire 9x9 board is full.
-emptychar = 'E'
+emptynum = 0
 
 def board_is_full(board):
 	for sub_row in board:
 		for sub_board in sub_row:
 			for row in sub_board:
 				for char in row:
-					if char == emptychar:
+					if char == emptynum:
 						return False
 
 	return True
@@ -30,30 +30,30 @@ def sub_board_is_full(board, move):
 	play_row = move / 3
 	sub_board = board[play_row][play_col]
 	# vertical
-	if (sub_board[0][0] == sub_board[0][1] and sub_board[0][1] == sub_board[0][2] and sub_board[0][0] != emptychar):
+	if (sub_board[0][0] == sub_board[0][1] and sub_board[0][1] == sub_board[0][2] and sub_board[0][0] != emptynum):
 		return sub_board[0][0];
-	if (sub_board[1][0] == sub_board[1][1] and sub_board[1][1] == sub_board[1][2] and sub_board[1][0] != emptychar):
+	if (sub_board[1][0] == sub_board[1][1] and sub_board[1][1] == sub_board[1][2] and sub_board[1][0] != emptynum):
 		return sub_board[1][0];
-	if (sub_board[2][0] == sub_board[2][1] and sub_board[2][1] == sub_board[2][2] and sub_board[2][0] != emptychar):
+	if (sub_board[2][0] == sub_board[2][1] and sub_board[2][1] == sub_board[2][2] and sub_board[2][0] != emptynum):
 		return sub_board[2][0];
 
 	# horizontal
-	if (sub_board[0][0] == sub_board[1][0] and sub_board[1][0] == sub_board[2][0] and sub_board[0][0] != emptychar):
+	if (sub_board[0][0] == sub_board[1][0] and sub_board[1][0] == sub_board[2][0] and sub_board[0][0] != emptynum):
 		return sub_board[0][0];
-	if (sub_board[0][1] == sub_board[1][1] and sub_board[1][1] == sub_board[2][1] and sub_board[0][1] != emptychar):
+	if (sub_board[0][1] == sub_board[1][1] and sub_board[1][1] == sub_board[2][1] and sub_board[0][1] != emptynum):
 		return sub_board[0][1];
-	if (sub_board[0][2] == sub_board[1][2] and sub_board[1][2] == sub_board[2][2] and sub_board[0][2] != emptychar):
+	if (sub_board[0][2] == sub_board[1][2] and sub_board[1][2] == sub_board[2][2] and sub_board[0][2] != emptynum):
 		return sub_board[0][2];
 
 	# diagonals
-	if (sub_board[0][0] == sub_board[1][1] and sub_board[1][1] == sub_board[2][2] and sub_board[1][1] != emptychar):
+	if (sub_board[0][0] == sub_board[1][1] and sub_board[1][1] == sub_board[2][2] and sub_board[1][1] != emptynum):
 		return sub_board[0][0];
-	if (sub_board[2][0] == sub_board[1][1] and sub_board[1][1] == sub_board[0][2] and sub_board[1][1] != emptychar):
+	if (sub_board[2][0] == sub_board[1][1] and sub_board[1][1] == sub_board[0][2] and sub_board[1][1] != emptynum):
 		return sub_board[2][0];
 
 	for row in sub_board:
 		for char in row:
-			if char == emptychar:
+			if char == emptynum:
 				return char
 
 	return 'F'
@@ -96,19 +96,19 @@ def get_valid_moves(board, move):
 				for row_num in range(0,3):
 					for col_num in range(0,3):
 						# if the position is already taken
-						if sub_board[row_num][col_num] != emptychar:
+						if sub_board[row_num][col_num] != emptynum:
 							valid_moves[board_row_num][board_col_num][row_num][col_num] = 0
 						
 						# if the position is playable,
-						if sub_board[row_num][col_num] == emptychar:
+						if sub_board[row_num][col_num] == emptynum:
 							next_sub_move = row_num + (3 * col_num)
 							# if the leading sub_board is won/full
-							if sub_board_is_full(board, next_sub_move) != emptychar:
+							if sub_board_is_full(board, next_sub_move) != emptynum:
 								valid_moves[board_row_num][board_col_num][row_num][col_num] = 1
 				
 				# checks if the board is done playing. i.e. full or won
 				next_move = board_row_num + 3*board_col_num
-				if sub_board_is_full(board, next_move) != emptychar:
+				if sub_board_is_full(board, next_move) != emptynum:
 					for row_num in range(3):
 						for col_num in range(3):
 							valid_moves[board_row_num][board_col_num][row_num][col_num] = 0
@@ -129,9 +129,9 @@ def get_valid_moves(board, move):
 	for row_num in range(3):
 		for col_num in range(3):
 			# if empty
-			if sub_board[row_num][col_num] == emptychar:
+			if sub_board[row_num][col_num] == emptynum:
 
-				if sub_board_is_full(board, move) == emptychar:
+				if sub_board_is_full(board, move) == emptynum:
 					valid_moves[row_num][col_num] = 2
 				else:
 					valid_moves[row_num][col_num] = 1
@@ -149,38 +149,39 @@ def who_won(board):
 	result_board = [[sub_board_is_full(board, x + 3*y) for x in range(0,3)] for y in range(0,3)]
 
 
-	if (result_board[0][0] == result_board[0][1] and result_board[0][1] == result_board[0][2]):
+	if (result_board[0][0] == result_board[0][1] and result_board[0][1] == result_board[0][2] and sub_board[0][0] != emptynum):
 		return result_board[0][0];
-	if (result_board[1][0] == result_board[1][1] and result_board[1][1] == result_board[1][2]):
+	if (result_board[1][0] == result_board[1][1] and result_board[1][1] == result_board[1][2] and sub_board[1][0] != emptynum):
 		return result_board[1][0];
-	if (result_board[2][0] == result_board[2][1] and result_board[2][1] == result_board[2][2]):
+	if (result_board[2][0] == result_board[2][1] and result_board[2][1] == result_board[2][2] and sub_board[2][0] != emptynum):
 		return result_board[2][0];
 
 	# horizontal
-	if (result_board[0][0] == result_board[1][0] and result_board[1][0] == result_board[2][0]):
+	if (result_board[0][0] == result_board[1][0] and result_board[1][0] == result_board[2][0] and sub_board[0][0] != emptynum):
 		return result_board[0][0];
-	if (result_board[0][1] == result_board[1][1] and result_board[1][1] == result_board[2][1]):
+	if (result_board[0][1] == result_board[1][1] and result_board[1][1] == result_board[2][1] and sub_board[0][1] != emptynum):
 		return result_board[0][1];
-	if (result_board[0][2] == result_board[1][2] and result_board[1][2] == result_board[2][2]):
+	if (result_board[0][2] == result_board[1][2] and result_board[1][2] == result_board[2][2] and sub_board[0][2] != emptynum):
 		return result_board[0][2];
 
 	# diagonals
-	if (result_board[0][0] == result_board[1][1] and result_board[1][1] == result_board[2][2]):
+	if (result_board[0][0] == result_board[1][1] and result_board[1][1] == result_board[2][2] and sub_board[1][1] != emptynum):
 		return result_board[0][0];
-	if (result_board[2][0] == result_board[1][1] and result_board[1][1] == result_board[0][2]):
+	if (result_board[2][0] == result_board[1][1] and result_board[1][1] == result_board[0][2] and sub_board[1][1] != emptynum):
 		return result_board[2][0];
 
 	for row in result_board:
-		for char in row:
-			if char == emptychar:
-				return char
+		for num in row:
+			if num == emptynum:
+				return num
 
-	return 'F'
+	# return 3 if full
+	return 3
 
 
 '''
 # test code
-test_board = [[[[emptychar for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
+test_board = [[[[emptynum for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
 
 test_board[1][1][0][0] = 'O'
 test_board[1][1][1][1] = 'O'
