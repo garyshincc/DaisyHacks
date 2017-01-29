@@ -65,15 +65,10 @@ def get_move(time, string):
 	dt = datetime.now()
 	us = string[0]
 	where_move = string[1]
-<<<<<<< HEAD
-	#board = [[[[0]* 3]*3]*3]*3
-    board = [[[[emptychar for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
-    for i in range(3):
-=======
+
 	board = [[[[emptychar for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
 
 	for i in range(3):
->>>>>>> a46b7449aac8cb172bac29fa6c60efd4ff17456e
 		for j in range(3):
 			for k in range(3):
 				for l in range(3):
