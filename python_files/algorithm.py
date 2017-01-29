@@ -16,30 +16,47 @@ def algorithm(board, playRow, playCol, currColour, us):
     else:
         return 1000
 
-def getScore(board, checkRow, checkCol, currColour, us):
+def getScore(board, move, currColour, us):
+    checkRow = move / 3
+    checkCol = move % 3
     pointTotal = 0;
     for k2 in range(3):
         for l2 in range(3):
 
           curr = board[checkRow][checkCol][k2][l2]
-
+          # for us
           if curr == us:
+            # center
             if k2 == 1 and l2 == 1:
-              pointTotal += 5
+              pointTotal += 1
+            # corners
             elif (k2+l2) % 2 == 0:
+              pointTotal += 5;
+            # edges
+            else:
               pointTotal += 3;
-            else:
-              pointTotal += 1;
+          # for the enemy
           elif curr == opposite(us):
+            # center
             if k2 == 1 and l2 == 1:
-              pointTotal -= 5;
-            elif (k2+l2) % 2 == 0:
-              pointTotal -= 3;
-            else:
               pointTotal -= 1;
+            # corners
+            elif (k2+l2) % 2 == 0:
+              pointTotal -= 5;
+            # edges
+            else:
+              pointTotal -= 3;
 
-
-          #printf("%c  %d\n", curr, pointTotal);
+          # multiplier for each board
+          # center
+          if checkRow == 1 and checkCol == 1:
+            pointTotal *= 1
+          # corners
+          elif (checkRow + checkCol) % 2 == 0:
+            pointTotal *= 5
+          # edges
+          else:
+            pointTotal *= 3
 
     return pointTotal;
 
