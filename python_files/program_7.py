@@ -3,7 +3,7 @@ import board_utils
 
 TOP_LEVEL = 7
 MIDDLE = 40
-
+emptychar = 'E'
 def algorithm(board, move, currColour, us):
     boardCheckResult = sub_board_is_full(board, move)
 
@@ -59,7 +59,8 @@ def get_move(time, string):
 	dt = datetime.now()
 	us = string[0]
 	where_move = string[1]
-	board = [[[[0]* 3]*3]*3]*3
+	board = [[[[emptychar for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
+
 	for i in range(3):
 		for j in range(3):
 			for k in range(3):
