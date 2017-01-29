@@ -38,6 +38,10 @@ def getScore(board, checkRow, checkCol, currColour, us):
             else:
               pointTotal -= 1;
 
+          # multiplier for each board
+
+          if checkRow == 1 and checkCol == 1:
+            
 
           #printf("%c  %d\n", curr, pointTotal);
 
