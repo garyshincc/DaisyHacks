@@ -63,16 +63,15 @@ def printboard(board):
 	for i in range(3):
 		for k in range(3):
 			for l1 in range(3):
-				sys.stdout.write(str(board[i][0][k][l1]) + " ")
-			sys.stdout.write("  ")
+				sys.stdout.write(str(board[i][0][k][l1]) + ' ')
+			sys.stdout.write('  ')
 			for l2 in range(3):
-				sys.stdout.write(str(board[i][1][k][l2]) + " ")
-			sys.stdout.write("  ")
+				sys.stdout.write(str(board[i][1][k][l2]) + ' ')
+			sys.stdout.write('  ')
 			for l3 in range(3):
-				sys.stdout.write(str(board[i][2][k][l3]) + " ")
+				sys.stdout.write(str(board[i][2][k][l3]) + ' ')
 
 			print
-
 		print
 
 # returns a 2-D array of valid moves
@@ -92,31 +91,28 @@ def get_valid_moves(board, move):
 		for board_row_num in range(3):
 			for board_col_num in range(3):
 
-				# checks if the board is done playing. i.e. full or won
-				
-
 				# removes already played positions
 				sub_board = board[board_row_num][board_col_num]
 				for row_num in range(0,3):
 					for col_num in range(0,3):
-						# if empty
+						# if the position is already taken
 						if sub_board[row_num][col_num] != emptychar:
 							valid_moves[board_row_num][board_col_num][row_num][col_num] = 0
 						
+						# if the position is playable,
 						if sub_board[row_num][col_num] == emptychar:
-							next_sub_move = row_num + 3*col_num
+							next_sub_move = row_num + (3 * col_num)
+							# if the leading sub_board is won/full
 							if sub_board_is_full(board, next_sub_move) != emptychar:
-
 								valid_moves[board_row_num][board_col_num][row_num][col_num] = 1
-						
+				
+				# checks if the board is done playing. i.e. full or won
 				next_move = board_row_num + 3*board_col_num
 				if sub_board_is_full(board, next_move) != emptychar:
 					for i in range(3):
 						for j in range(3):
-							valid_moves[board_row_num][board_col_num][i][j] = 0		
-						#if sub_board_is_full(board,next_move) != 'E':
-						
-						#	valid_moves[board_row_num][board_col_num][row_num][col_num] = 0
+							valid_moves[board_row_num][board_col_num][i][j] = 0
+
 		return True, valid_moves
 
 
@@ -179,25 +175,25 @@ def who_won(board):
 	return 'F'
 
 
-'''
+
 # test code
 test_board = [[[[emptychar for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
 
-test_board[1][1][0][2] = 'X'
-test_board[1][1][1][1] = 'X'
-test_board[1][1][2][0] = 'X'
+test_board[1][1][0][0] = 'O'
+test_board[1][1][1][1] = 'O'
+test_board[1][1][2][2] = 'X'
 
-test_board[0][2][0][2] = 'X'
+test_board[0][2][0][0] = 'X'
 test_board[0][2][1][1] = 'X'
-test_board[0][2][2][0] = 'X'
+test_board[0][2][2][2] = 'O'
 
-test_board[2][0][0][2] = 'X'
-test_board[2][0][1][1] = 'X'
-test_board[2][0][2][0] = 'X'
+test_board[2][0][0][0] = 'O'
+test_board[2][0][1][1] = 'O'
+test_board[2][0][2][2] = 'O'
 
 printboard(test_board)
 who_won(test_board)
 is_free, valid_moves = get_valid_moves(test_board,9)
-printboard(valid_moves)
-'''
+printboard(zip(*valid_moves))
+
 
