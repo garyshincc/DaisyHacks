@@ -49,13 +49,11 @@ def getScore(board, checkRow, checkCol, currColour, us):
 
 def empty(a):
 	if type(a) == list:
-		print a
 		for i in a:
 			if not empty(i):
 				return False
 	else:
-		print a
-		if a != 0:
+		if a != '0':
 			return False
 	return True
 
@@ -74,6 +72,7 @@ def get_move(time, string):
 					board[i][j][k][l] = string[27*i + 9*j + 3*k + l + 2]
 	board_utils.printboard(board)
 	if empty(board):
+		print 
 		return MIDDLE
 	return "0" #bestmove
 
