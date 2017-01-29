@@ -112,7 +112,10 @@ def get_valid_moves(board, move):
 					for row_num in range(3):
 						for col_num in range(3):
 							valid_moves[board_row_num][board_col_num][row_num][col_num] = 0
-
+		for i in range(3):
+			for j in range(3):
+				valid_moves[i][j] = zip(*valid_moves[i][j])
+		valid_moves = zip(*valid_moves)
 		return True, valid_moves
 
 
@@ -175,7 +178,7 @@ def who_won(board):
 	return 'F'
 
 
-
+'''
 # test code
 test_board = [[[[emptychar for x in range(3)] for y in range(3)] for z in range(3)] for k in range(3)]
 
@@ -192,17 +195,20 @@ test_board[2][0][1][1] = 'O'
 test_board[2][0][2][2] = 'O'
 
 printboard(test_board)
-'''
+
 is_free, valid_moves = get_valid_moves(test_board,9,'W')
 for i in range(3):
 	for j in range(3):
 		valid_moves[i][j] = zip(*valid_moves[i][j])
 valid_moves = zip(*valid_moves)
 printboard(valid_moves)
-'''
+
 is_free, valid_moves = get_valid_moves(test_board,2,'W')
 
 for i in range(3):
 	for j in range(3):
 		sys.stdout.write(str(valid_moves[i][j]) + ' ')
 	print
+'''
+
+
