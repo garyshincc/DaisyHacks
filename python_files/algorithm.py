@@ -2,7 +2,9 @@ import sys
 import board_utils
 
 
-def algorithm(board, playRow, playCol, currColour, us):
+def algorithm(board, move, currColour, us):
+    playRow = move / 3
+    playCol = move % 3
     boardCheckResult = sub_board_is_full(board, playRow, playCol)
 
     if boardCheckResult == '0':
@@ -16,7 +18,9 @@ def algorithm(board, playRow, playCol, currColour, us):
     else:
         return 1000
 
-def getScore(board, checkRow, checkCol, currColour, us):
+def getScore(board, move, currColour, us):
+    checkRow = move / 3
+    checkCol = move % 3
     pointTotal = 0;
     for k2 in range(3):
         for l2 in range(3):
@@ -41,8 +45,10 @@ def getScore(board, checkRow, checkCol, currColour, us):
           # multiplier for each board
 
           if checkRow == 1 and checkCol == 1:
-            
-
+            pointTotal *= 5
+          elif (checkRow + checkCol) % 2 == 0:
+            pointTotal *= 3
+          
           #printf("%c  %d\n", curr, pointTotal);
 
     return pointTotal;
