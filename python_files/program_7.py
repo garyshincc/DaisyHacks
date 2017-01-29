@@ -1,5 +1,6 @@
 from datetime import datetime
 import board_utils
+import numpy
 
 TOP_LEVEL = 7
 MIDDLE = 40
@@ -48,9 +49,12 @@ def getScore(board, checkRow, checkCol, currColour, us):
 
 def empty(a):
 	if type(a) == list:
+		print a
 		for i in a:
-			empty(i)
+			if not empty(i):
+				return False
 	else:
+		print a
 		if a != 0:
 			return False
 	return True
@@ -67,13 +71,13 @@ def get_move(time, string):
 		for j in range(3):
 			for k in range(3):
 				for l in range(3):
-					print i, j, k , l, string[27*i + 9*j + 3*k + l + 2]
 					board[i][j][k][l] = string[27*i + 9*j + 3*k + l + 2]
-					print board[i][j][k][l]
 	board_utils.printboard(board)
 	if empty(board):
 		return MIDDLE
 	return "0" #bestmove
+
+	#return x, y #false is small, true is big
 
 
 def best_move(us, turn, move, board):
@@ -84,8 +88,11 @@ def best_move(us, turn, move, board):
 	# 1 is available but gives a free move,
 	# 0 is impossible
 
-	is_free, valid moves = board_utils.get_valid_moves(board, move)
+	is_free, valid_moves = board_utils.get_valid_moves(board, move)
 	algorithm()
+	moves = board_utils.get_valid_moves(board, move)
+	#for move in moves:
+
 
 '''
 def minimax(level, time_left, us, turn, move, board):

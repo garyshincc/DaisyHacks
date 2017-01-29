@@ -62,17 +62,12 @@ def sub_board_is_full(board, move):
 def printboard(board):
 	for i in range(3):
 		for k in range(3):
-			for l1 in range(3):
-				sys.stdout.write(str(board[i][0][k][l1]) + ' ')
-			sys.stdout.write('  ')
-			for l2 in range(3):
-				sys.stdout.write(str(board[i][1][k][l2]) + ' ')
-			sys.stdout.write('  ')
-			for l3 in range(3):
-				sys.stdout.write(str(board[i][2][k][l3]) + ' ')
-
-			print
-		print
+			for j in range(3):
+				for l in range(3):
+					print str(board[i][j][k][l]),
+				print " ",
+			print " "
+		print " "
 
 # returns a 2-D array of valid moves
 # the array will be 3 by 3 size type int
